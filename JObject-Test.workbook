@@ -1,0 +1,54 @@
+---
+uti: com.xamarin.workbook
+id: ca0183f6-1707-4943-9e1a-be10b04843b1
+title: JObject-Test
+platforms:
+- DotNetCore
+packages:
+- id: Json.Net
+  version: 1.0.33
+- id: Newtonsoft.Json
+  version: 13.0.1
+---
+
+```csharp
+#r "Newtonsoft.Json"
+```
+
+```csharp
+using Newtonsoft.Json.Linq;
+```
+
+```csharp
+string json = @"{
+  CPU: 'Intel',
+  Drives: [
+    'DVD read/writer',
+    '500 gigabyte hard drive'
+  ]
+}";
+```
+
+```csharp
+JObject o = JObject.Parse(json);
+```
+
+```csharp
+JObject o1 = JObject.Parse(@"{
+  'CPU': 'Intel',
+  'Drives': [
+    'DVD read/writer',
+    '500 gigabyte hard drive'
+  ]
+}");
+
+string cpu = (string)o1["CPU"];
+// Intel
+
+string firstDrive = (string)o1["Drives"][0];
+// DVD read/writer
+
+IList<string> allDrives = o1["Drives"].Select(t => (string)t).ToList();
+// DVD read/writer
+// 500 gigabyte hard drive
+```
